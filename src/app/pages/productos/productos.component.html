@@ -1,0 +1,179 @@
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+
+            <h3>Productos</h3>
+
+            <button
+                class="btn btn-light"
+                (click)="mostrarFormulario = !mostrarFormulario">
+
+                Nuevo Producto
+
+            </button>
+
+        </div>
+
+        <div class="card-body" *ngIf="mostrarFormulario">
+
+            <h5>
+
+                {{ modoEdicion ? 'Editar Producto' : 'Nuevo Producto' }}
+
+            </h5>
+
+            <div class="mb-3">
+
+                <label>Nombre</label>
+
+                <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="nuevoProducto.nombre">
+
+            </div>
+
+            <div class="mb-3">
+
+                <label>Código</label>
+
+                <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="nuevoProducto.codigo">
+
+            </div>
+
+            <div class="mb-3">
+
+                <label>Precio</label>
+
+                <input
+                    type="number"
+                    class="form-control"
+                    [(ngModel)]="nuevoProducto.precio">
+
+            </div>
+
+            <div class="mb-3">
+
+                <label>Stock</label>
+
+                <input
+                    type="number"
+                    class="form-control"
+                    [(ngModel)]="nuevoProducto.stock">
+
+            </div>
+
+            <div class="mb-3">
+
+                <label>Categoría</label>
+
+                <select
+                    class="form-select"
+                    [(ngModel)]="nuevoProducto.categoriaId">
+
+                    <option [ngValue]="0">
+                        Seleccione una categoría
+                    </option>
+
+                    <option
+                        *ngFor="let categoria of categorias"
+                        [ngValue]="categoria.id">
+
+                        {{ categoria.nombre }}
+
+                    </option>
+
+                </select>
+
+            </div>
+
+            <button
+                class="btn btn-success me-2"
+                (click)="guardarProducto()">
+
+                {{ modoEdicion ? 'Actualizar' : 'Guardar' }}
+
+            </button>
+
+            <button
+                class="btn btn-secondary"
+                (click)="cancelar()">
+
+                Cancelar
+
+            </button>
+
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-striped table-hover">
+
+                <thead class="table-dark">
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Código</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Categoría</th>
+                        <th>Acciones</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr *ngFor="let producto of productos">
+
+                        <td>{{ producto.id }}</td>
+
+                        <td>{{ producto.nombre }}</td>
+
+                        <td>{{ producto.codigo }}</td>
+
+                        <td>{{ producto.precio | currency:'USD' }}</td>
+
+                        <td>{{ producto.stock }}</td>
+
+                        <td>{{ producto.categoria?.nombre }}</td>
+
+                        <td>
+
+                            <button
+                                class="btn btn-warning btn-sm me-2"
+                                (click)="editarProducto(producto)">
+
+                                Editar
+
+                            </button>
+
+                            <button
+                                class="btn btn-danger btn-sm"
+                                (click)="eliminarProducto(producto.id)">
+
+                                Eliminar
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

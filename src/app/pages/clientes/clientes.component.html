@@ -1,0 +1,144 @@
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+
+            <h3>Clientes</h3>
+
+            <button
+                class="btn btn-light"
+                (click)="mostrarFormulario = !mostrarFormulario">
+
+                Nuevo Cliente
+
+            </button>
+
+        </div>
+
+        <div class="card-body" *ngIf="mostrarFormulario">
+
+            <h5>
+
+                {{ modoEdicion ? 'Editar Cliente' : 'Nuevo Cliente' }}
+
+            </h5>
+
+            <div class="mb-3">
+
+                <label>Identificación</label>
+
+                <input
+                    class="form-control"
+                    [(ngModel)]="nuevoCliente.identificacion">
+
+            </div>
+
+            <div class="mb-3">
+
+                <label>Nombre</label>
+
+                <input
+                    class="form-control"
+                    [(ngModel)]="nuevoCliente.nombre">
+
+            </div>
+
+            <div class="mb-3">
+
+                <label>Correo</label>
+
+                <input
+                    class="form-control"
+                    [(ngModel)]="nuevoCliente.correo">
+
+            </div>
+
+            <div class="mb-3">
+
+                <label>Teléfono</label>
+
+                <input
+                    class="form-control"
+                    [(ngModel)]="nuevoCliente.telefono">
+
+            </div>
+
+            <button
+                class="btn btn-success me-2"
+                (click)="guardarCliente()">
+
+                {{ modoEdicion ? 'Actualizar' : 'Guardar' }}
+
+            </button>
+
+            <button
+                class="btn btn-secondary"
+                (click)="cancelar()">
+
+                Cancelar
+
+            </button>
+
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-striped table-hover">
+
+                <thead class="table-dark">
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Identificación</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Teléfono</th>
+                        <th>Acciones</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr *ngFor="let cliente of clientes">
+
+                        <td>{{ cliente.id }}</td>
+                        <td>{{ cliente.identificacion }}</td>
+                        <td>{{ cliente.nombre }}</td>
+                        <td>{{ cliente.correo }}</td>
+                        <td>{{ cliente.telefono }}</td>
+
+                        <td>
+
+                            <button
+                                class="btn btn-warning btn-sm me-2"
+                                (click)="editarCliente(cliente)">
+
+                                Editar
+
+                            </button>
+
+                            <button
+                                class="btn btn-danger btn-sm"
+                                (click)="eliminarCliente(cliente.id)">
+
+                                Eliminar
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

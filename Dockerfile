@@ -1,21 +1,23 @@
 # Etapa de compilación
-FROM mcr.microsoft.com/dotnet/sdk:10.0-preview AS build
-WORKDIR /src
-
-COPY . .
-
-RUN dotnet restore
-RUN dotnet publish -c Release -o /app/publish
-
-# Etapa de ejecución
-FROM mcr.microsoft.com/dotnet/aspnet:10.0-preview
+FROM node:22-alpine AS build
 
 WORKDIR /app
 
-COPY --from=build /app/publish .
+COPY package*.json ./
 
-ENV ASPNETCORE_URLS=http://+:8080
+RUN npm install
+
+COPY . .
+
+RUN npm run build
+
+# Etapa de producción
+FROM nginx:alpine
+
+COPY --from=build /app/dist/empresa-modular-angular/browser /usr/share/nginx/html
+
+RUN sed -i 's/listen       80;/listen       8080;/g' /etc/nginx/conf.d/default.conf
 
 EXPOSE 8080
 
-ENTRYPOINT ["dotnet", "EmpresaModularAPI.dll"]
+CMD ["nginx", "-g", "daemon off;"]

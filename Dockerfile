@@ -12,15 +12,16 @@ RUN npm run build
 
 FROM nginx:alpine
 
+COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=build /app/dist/empresa-modular-angular/browser /usr/share/nginx/html
 
-RUN sed -i 's/listen       80;/listen       8080;/g' /etc/nginx/conf.d/default.conf && \
-    sed -i '/user nginx;/d' /etc/nginx/nginx.conf && \
-    mkdir -p /tmp/nginx/client_temp && \
-    chmod -R 777 /tmp/nginx
-
-ENV NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx
+RUN mkdir -p /tmp/client_temp \
+    /tmp/proxy_temp \
+    /tmp/fastcgi_temp \
+    /tmp/uwsgi_temp \
+    /tmp/scgi_temp && \
+    chmod -R 777 /tmp
 
 EXPOSE 8080
 
-CMD ["nginx","-g","daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]

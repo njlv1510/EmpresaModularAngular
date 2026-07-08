@@ -11,7 +11,7 @@ export class ClienteService {
 
   private http = inject(HttpClient);
 
-  private apiUrl = 'http://localhost:5192/api/Clientes';
+  private apiUrl = 'https://empresa-modular-api-git-nicklv1510-dev.apps.rm3.7wse.p1.openshiftapps.com/api/Clientes';
 
   getClientes(): Observable<Cliente[]> {
     return this.http.get<Cliente[]>(this.apiUrl);

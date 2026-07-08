@@ -11,7 +11,7 @@ export class VentaService {
 
   private http = inject(HttpClient);
 
-  private apiUrl = 'http://localhost:5192/api/Ventas';
+  private apiUrl = 'https://empresa-modular-api-git-nicklv1510-dev.apps.rm3.7wse.p1.openshiftapps.com/api/Ventas';
 
   getVentas(): Observable<Venta[]> {
     return this.http.get<Venta[]>(this.apiUrl);

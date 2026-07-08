@@ -11,7 +11,7 @@ export class ProductoService {
 
   private http = inject(HttpClient);
 
-  private apiUrl = 'http://localhost:5192/api/Productos';
+  private apiUrl = 'https://empresa-modular-api-git-nicklv1510-dev.apps.rm3.7wse.p1.openshiftapps.com/api/Productos';
 
   getProductos(): Observable<Producto[]> {
     return this.http.get<Producto[]>(this.apiUrl);

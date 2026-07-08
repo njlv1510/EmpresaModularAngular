@@ -11,7 +11,7 @@ export class CategoriaService {
 
   private http = inject(HttpClient);
 
-  private apiUrl = 'http://localhost:5192/api/Categorias';
+  private apiUrl = 'https://empresa-modular-api-git-nicklv1510-dev.apps.rm3.7wse.p1.openshiftapps.com/api/Categorias';
 
   getCategorias(): Observable<Categoria[]> {
     return this.http.get<Categoria[]>(this.apiUrl);

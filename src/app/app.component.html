@@ -1,1 +1,108 @@
-<router-outlet></router-outlet>
+<div class="d-flex">
+
+  <!-- Sidebar -->
+  <div class="sidebar bg-dark text-white">
+
+    <div class="text-center py-4 border-bottom">
+
+      <i class="bi bi-building display-5 text-primary"></i>
+
+      <h3 class="mt-2 fw-bold">
+        Empresa Modular
+      </h3>
+
+      <small class="text-secondary">
+        Sistema de Gestión
+      </small>
+
+    </div>
+
+    <div class="list-group list-group-flush mt-3">
+
+      <a
+        routerLink="/dashboard"
+        routerLinkActive="active"
+        class="list-group-item list-group-item-action">
+
+        <i class="bi bi-speedometer2 me-2"></i>
+
+        Dashboard
+
+      </a>
+
+      <a
+        routerLink="/categorias"
+        routerLinkActive="active"
+        class="list-group-item list-group-item-action">
+
+        <i class="bi bi-tags-fill me-2"></i>
+
+        Categorías
+
+      </a>
+
+      <a
+        routerLink="/clientes"
+        routerLinkActive="active"
+        class="list-group-item list-group-item-action">
+
+        <i class="bi bi-people-fill me-2"></i>
+
+        Clientes
+
+      </a>
+
+      <a
+        routerLink="/productos"
+        routerLinkActive="active"
+        class="list-group-item list-group-item-action">
+
+        <i class="bi bi-box-seam me-2"></i>
+
+        Productos
+
+      </a>
+
+      <a
+        routerLink="/ventas"
+        routerLinkActive="active"
+        class="list-group-item list-group-item-action">
+
+        <i class="bi bi-cash-stack me-2"></i>
+
+        Ventas
+
+      </a>
+
+    </div>
+
+  </div>
+
+  <!-- Contenido -->
+  <div class="flex-grow-1">
+
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+
+      <div class="container-fluid">
+
+        <span class="navbar-brand fw-bold">
+
+          <i class="bi bi-grid-fill text-primary me-2"></i>
+
+          Sistema de Gestión Empresarial
+
+        </span>
+
+      </div>
+
+    </nav>
+
+    <div class="p-4">
+
+      <router-outlet></router-outlet>
+
+    </div>
+
+  </div>
+
+</div>

@@ -48,7 +48,6 @@ export class CategoriasComponent implements OnInit {
 
   guardarCategoria(): void {
 
-    // EDITAR
     if (this.modoEdicion) {
 
       this.categoriaService.actualizarCategoria(
@@ -58,7 +57,13 @@ export class CategoriasComponent implements OnInit {
 
         next: () => {
 
-          alert("Categoría actualizada correctamente");
+          Swal.fire({
+            icon: 'success',
+            title: 'Actualizado',
+            text: 'Categoría actualizada correctamente',
+            timer: 1800,
+            showConfirmButton: false
+          });
 
           this.cancelar();
 
@@ -71,14 +76,20 @@ export class CategoriasComponent implements OnInit {
       });
 
       return;
+
     }
 
-    // CREAR
     this.categoriaService.crearCategoria(this.nuevaCategoria).subscribe({
 
       next: () => {
 
-        alert("Categoría creada correctamente");
+        Swal.fire({
+          icon: 'success',
+          title: 'Registrado',
+          text: 'Categoría creada correctamente',
+          timer: 1800,
+          showConfirmButton: false
+        });
 
         this.cancelar();
 
@@ -108,21 +119,39 @@ export class CategoriasComponent implements OnInit {
 
   eliminarCategoria(id: number): void {
 
-    const confirmar = confirm('¿Está seguro de eliminar esta categoría?');
+    Swal.fire({
+      title: '¿Eliminar categoría?',
+      text: 'Esta acción no se puede deshacer.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#dc3545'
+    }).then((result) => {
 
-    if (!confirmar) return;
+      if (result.isConfirmed) {
 
-    this.categoriaService.eliminarCategoria(id).subscribe({
+        this.categoriaService.eliminarCategoria(id).subscribe({
 
-      next: () => {
+          next: () => {
 
-        alert("Categoría eliminada correctamente");
+            Swal.fire({
+              icon: 'success',
+              title: 'Eliminado',
+              text: 'Categoría eliminada correctamente',
+              timer: 1800,
+              showConfirmButton: false
+            });
 
-        this.cargarCategorias();
+            this.cargarCategorias();
 
-      },
+          },
 
-      error: err => console.error(err)
+          error: err => console.error(err)
+
+        });
+
+      }
 
     });
 

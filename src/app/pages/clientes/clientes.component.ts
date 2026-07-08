@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { Cliente } from '../../models/cliente';
 import { ClienteService } from '../../services/cliente.service';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-clientes',
   standalone: true,
@@ -57,7 +59,13 @@ export class ClientesComponent implements OnInit {
 
         next: () => {
 
-          alert("Cliente actualizado correctamente");
+          Swal.fire({
+            icon: 'success',
+            title: 'Actualizado',
+            text: 'Cliente actualizado correctamente',
+            timer: 1800,
+            showConfirmButton: false
+          });
 
           this.cancelar();
 
@@ -77,7 +85,13 @@ export class ClientesComponent implements OnInit {
 
       next: () => {
 
-        alert("Cliente creado correctamente");
+        Swal.fire({
+          icon: 'success',
+          title: 'Registrado',
+          text: 'Cliente creado correctamente',
+          timer: 1800,
+          showConfirmButton: false
+        });
 
         this.cancelar();
 
@@ -105,21 +119,39 @@ export class ClientesComponent implements OnInit {
 
   eliminarCliente(id: number): void {
 
-    const confirmar = confirm("¿Eliminar cliente?");
+    Swal.fire({
+      title: '¿Eliminar cliente?',
+      text: 'Esta acción no se puede deshacer.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#dc3545'
+    }).then((result) => {
 
-    if (!confirmar) return;
+      if (result.isConfirmed) {
 
-    this.clienteService.eliminarCliente(id).subscribe({
+        this.clienteService.eliminarCliente(id).subscribe({
 
-      next: () => {
+          next: () => {
 
-        alert("Cliente eliminado correctamente");
+            Swal.fire({
+              icon: 'success',
+              title: 'Eliminado',
+              text: 'Cliente eliminado correctamente',
+              timer: 1800,
+              showConfirmButton: false
+            });
 
-        this.cargarClientes();
+            this.cargarClientes();
 
-      },
+          },
 
-      error: err => console.error(err)
+          error: err => console.error(err)
+
+        });
+
+      }
 
     });
 

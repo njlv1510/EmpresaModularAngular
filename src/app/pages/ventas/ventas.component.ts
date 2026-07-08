@@ -10,6 +10,8 @@ import { VentaService } from '../../services/venta.service';
 import { ClienteService } from '../../services/cliente.service';
 import { ProductoService } from '../../services/producto.service';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-ventas',
   standalone: true,
@@ -72,7 +74,7 @@ export class VentasComponent implements OnInit {
   calcularTotal() {
 
     const producto = this.productos.find(
-      p => p.id == this.nuevaVenta.productoId
+      p => p.id === this.nuevaVenta.productoId
     );
 
     if (producto) {
@@ -93,10 +95,15 @@ export class VentasComponent implements OnInit {
 
         next: () => {
 
-          alert('Venta actualizada');
+          Swal.fire({
+            icon: 'success',
+            title: 'Actualizado',
+            text: 'Venta actualizada correctamente',
+            timer: 1800,
+            showConfirmButton: false
+          });
 
           this.cancelar();
-
           this.cargarVentas();
 
         },
@@ -113,10 +120,15 @@ export class VentasComponent implements OnInit {
 
       next: () => {
 
-        alert('Venta registrada');
+        Swal.fire({
+          icon: 'success',
+          title: 'Registrado',
+          text: 'Venta registrada correctamente',
+          timer: 1800,
+          showConfirmButton: false
+        });
 
         this.cancelar();
-
         this.cargarVentas();
 
       },
@@ -146,19 +158,39 @@ export class VentasComponent implements OnInit {
 
   eliminarVenta(id: number) {
 
-    if (!confirm('¿Eliminar venta?')) return;
+    Swal.fire({
+      title: '¿Eliminar venta?',
+      text: 'Esta acción no se puede deshacer.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#dc3545'
+    }).then((result) => {
 
-    this.ventaService.eliminarVenta(id).subscribe({
+      if (result.isConfirmed) {
 
-      next: () => {
+        this.ventaService.eliminarVenta(id).subscribe({
 
-        alert('Venta eliminada');
+          next: () => {
 
-        this.cargarVentas();
+            Swal.fire({
+              icon: 'success',
+              title: 'Eliminado',
+              text: 'Venta eliminada correctamente',
+              timer: 1800,
+              showConfirmButton: false
+            });
 
-      },
+            this.cargarVentas();
 
-      error: err => console.error(err)
+          },
+
+          error: err => console.error(err)
+
+        });
+
+      }
 
     });
 

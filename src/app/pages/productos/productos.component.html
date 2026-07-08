@@ -1,14 +1,19 @@
-<div class="container mt-4">
+<div class="container-fluid">
 
     <div class="card shadow">
 
         <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
 
-            <h3>Productos</h3>
+            <h3 class="mb-0">
+                <i class="bi bi-box-seam me-2"></i>
+                Productos
+            </h3>
 
             <button
                 class="btn btn-light"
                 (click)="mostrarFormulario = !mostrarFormulario">
+
+                <i class="bi bi-plus-circle me-2"></i>
 
                 Nuevo Producto
 
@@ -18,7 +23,9 @@
 
         <div class="card-body" *ngIf="mostrarFormulario">
 
-            <h5>
+            <h5 class="mb-4">
+
+                <i class="bi bi-pencil-square me-2"></i>
 
                 {{ modoEdicion ? 'Editar Producto' : 'Nuevo Producto' }}
 
@@ -26,7 +33,7 @@
 
             <div class="mb-3">
 
-                <label>Nombre</label>
+                <label class="form-label fw-bold">Nombre</label>
 
                 <input
                     type="text"
@@ -37,7 +44,7 @@
 
             <div class="mb-3">
 
-                <label>Código</label>
+                <label class="form-label fw-bold">Código</label>
 
                 <input
                     type="text"
@@ -48,7 +55,7 @@
 
             <div class="mb-3">
 
-                <label>Precio</label>
+                <label class="form-label fw-bold">Precio</label>
 
                 <input
                     type="number"
@@ -59,7 +66,7 @@
 
             <div class="mb-3">
 
-                <label>Stock</label>
+                <label class="form-label fw-bold">Stock</label>
 
                 <input
                     type="number"
@@ -70,7 +77,7 @@
 
             <div class="mb-3">
 
-                <label>Categoría</label>
+                <label class="form-label fw-bold">Categoría</label>
 
                 <select
                     class="form-select"
@@ -96,6 +103,8 @@
                 class="btn btn-success me-2"
                 (click)="guardarProducto()">
 
+                <i class="bi bi-check-circle me-2"></i>
+
                 {{ modoEdicion ? 'Actualizar' : 'Guardar' }}
 
             </button>
@@ -103,6 +112,8 @@
             <button
                 class="btn btn-secondary"
                 (click)="cancelar()">
+
+                <i class="bi bi-x-circle me-2"></i>
 
                 Cancelar
 
@@ -112,9 +123,9 @@
 
         <div class="card-body">
 
-            <table class="table table-striped table-hover">
+            <table class="table table-striped table-hover align-middle">
 
-                <thead class="table-dark">
+                <thead class="table-dark text-center">
 
                     <tr>
 
@@ -124,7 +135,7 @@
                         <th>Precio</th>
                         <th>Stock</th>
                         <th>Categoría</th>
-                        <th>Acciones</th>
+                        <th width="180">Acciones</th>
 
                     </tr>
 
@@ -146,21 +157,23 @@
 
                         <td>{{ producto.categoria?.nombre }}</td>
 
-                        <td>
+                        <td class="text-center">
 
                             <button
                                 class="btn btn-warning btn-sm me-2"
-                                (click)="editarProducto(producto)">
+                                (click)="editarProducto(producto)"
+                                title="Editar">
 
-                                Editar
+                                <i class="bi bi-pencil-square"></i>
 
                             </button>
 
                             <button
                                 class="btn btn-danger btn-sm"
-                                (click)="eliminarProducto(producto.id)">
+                                (click)="eliminarProducto(producto.id)"
+                                title="Eliminar">
 
-                                Eliminar
+                                <i class="bi bi-trash-fill"></i>
 
                             </button>
 

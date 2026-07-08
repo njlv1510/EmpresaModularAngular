@@ -8,6 +8,8 @@ import { Categoria } from '../../models/categoria';
 import { ProductoService } from '../../services/producto.service';
 import { CategoriaService } from '../../services/categoria.service';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-productos',
   standalone: true,
@@ -72,10 +74,15 @@ export class ProductosComponent implements OnInit {
 
         next: () => {
 
-          alert('Producto actualizado correctamente');
+          Swal.fire({
+            icon: 'success',
+            title: 'Actualizado',
+            text: 'Producto actualizado correctamente',
+            timer: 1800,
+            showConfirmButton: false
+          });
 
           this.cancelar();
-
           this.cargarProductos();
 
         },
@@ -92,10 +99,15 @@ export class ProductosComponent implements OnInit {
 
       next: () => {
 
-        alert('Producto creado correctamente');
+        Swal.fire({
+          icon: 'success',
+          title: 'Registrado',
+          text: 'Producto creado correctamente',
+          timer: 1800,
+          showConfirmButton: false
+        });
 
         this.cancelar();
-
         this.cargarProductos();
 
       },
@@ -125,21 +137,39 @@ export class ProductosComponent implements OnInit {
 
   eliminarProducto(id: number): void {
 
-    const confirmar = confirm('¿Desea eliminar este producto?');
+    Swal.fire({
+      title: '¿Eliminar producto?',
+      text: 'Esta acción no se puede deshacer.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#dc3545'
+    }).then((result) => {
 
-    if (!confirmar) return;
+      if (result.isConfirmed) {
 
-    this.productoService.eliminarProducto(id).subscribe({
+        this.productoService.eliminarProducto(id).subscribe({
 
-      next: () => {
+          next: () => {
 
-        alert('Producto eliminado correctamente');
+            Swal.fire({
+              icon: 'success',
+              title: 'Eliminado',
+              text: 'Producto eliminado correctamente',
+              timer: 1800,
+              showConfirmButton: false
+            });
 
-        this.cargarProductos();
+            this.cargarProductos();
 
-      },
+          },
 
-      error: err => console.error(err)
+          error: err => console.error(err)
+
+        });
+
+      }
 
     });
 
